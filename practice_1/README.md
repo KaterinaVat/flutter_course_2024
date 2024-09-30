@@ -21,3 +21,5 @@ The application uses the [WeatherAPI](https://www.weatherapi.com/) to fetch weat
 The application implements a repository pattern for handling data fetching and processing. The `WeatherRepositoryWA` class is responsible for interacting with the WeatherAPI and retrieving weather data. The `WAApi` class handles the actual API calls and data parsing.
 
 ### Example
+
+![изображение](https://github.com/user-attachments/assets/c19ce11a-1348-48de-b939-2c89d8a63065)
