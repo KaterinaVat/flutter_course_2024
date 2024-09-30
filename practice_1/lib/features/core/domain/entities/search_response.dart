@@ -10,4 +10,4 @@ class SearchResponse {
   }
 }
 
-enum WeatherType {clear, rain, cloudy, other}
+enum WeatherType {clear, rain, cloudy, sunny, other}

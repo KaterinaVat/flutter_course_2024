@@ -1,4 +1,5 @@
 import 'package:practice_1/features/core/domain/entities/search_query.dart';
+import 'package:practice_1/features/core/domain/entities/search_response.dart';
 import 'package:practice_1/features/core/domain/repositories/weather_repository.dart';
 import 'dart:io';
 
@@ -17,6 +18,21 @@ class App {
     }
 
     var resp = await repository.getWeather(SearchQuery(city));
-    print('Погода в городе $city: ${resp.temp-273} по Цельсию, тип: ${resp.type}');
+    print('Погода в городе $city: ${resp.temp} по Цельсию, тип: ${weatherTypeToString(resp.type)}');
+  }
+}
+
+String weatherTypeToString(WeatherType type) {
+  switch (type) {
+    case WeatherType.cloudy:
+      return 'Clouds';
+    case WeatherType.clear:
+      return 'Clear';
+    case WeatherType.rain:
+      return 'Rain';
+    case WeatherType.sunny:
+      return 'Sunny';
+    default:
+      return 'Other';
   }
 }
