@@ -27,3 +27,5 @@ The WeatherRepositoryWA implementation now supports fetching weather data by coo
 ### Example
 
 ![изображение](https://github.com/user-attachments/assets/c19ce11a-1348-48de-b939-2c89d8a63065)
+
+![изображение](https://github.com/user-attachments/assets/f6e73e60-557c-4eae-9b77-af4340824113)
