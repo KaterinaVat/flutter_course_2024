@@ -15,4 +15,8 @@ class OSMApi {
 
     return OSMWeather(rJson['main']['temp'], rJson['weather'][0]['main']);
   }
+
+  Future<OSMWeather> getWeatherByCoords(double latitude, double longitude) async {
+    throw UnimplementedError();
+  }
 }

@@ -15,4 +15,11 @@ class WAApi {
 
     return WAWeather(rJson['current']['temp_c'], rJson['current']['condition']['text']);
   }
+
+  Future<WAWeather> getWeatherByCoords(double latitude, double longitude) async {
+    var response = await http.get(Uri.parse('$url/v1/current.json?key=$apiKey&q=$latitude,$longitude&aqi=no'));
+    var rJson = jsonDecode(response.body);
+
+    return WAWeather(rJson['current']['temp_c'], rJson['current']['condition']['text']);
+  }
 }

@@ -9,16 +9,34 @@ class App {
   App(this.repository);
 
   void run() async {
-    print('Введите город:');
-    var city = stdin.readLineSync();
+    print('Введите город или координаты (широта, долгота):');
+    var input = stdin.readLineSync();
 
-    if (city == null) {
+    if (input == null) {
       print('Ошибка ввода');
       return;
     }
 
-    var resp = await repository.getWeather(SearchQuery(city));
-    print('Погода в городе $city: ${resp.temp} по Цельсию, тип: ${weatherTypeToString(resp.type)}');
+    SearchQuery query;
+    if (input.contains(',')) {
+      var coords = input.split(',');
+      if (coords.length != 2) {
+        print('Неверный формат координат');
+        return;
+      }
+      var latitude = double.tryParse(coords[0].trim());
+      var longitude = double.tryParse(coords[1].trim());
+      if (latitude == null || longitude == null) {
+        print('Неверный формат координат');
+        return;
+      }
+      query = SearchQuery.byCoords(latitude, longitude);
+    } else {
+      query = SearchQuery.byCity(input);
+    }
+
+    var resp = await repository.getWeather(query);
+    print('Погода в этой локации: ${resp.temp} по Цельсию, тип: ${weatherTypeToString(resp.type)}');
   }
 }
 
