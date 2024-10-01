@@ -1,0 +1,109 @@
+digraph "" {
+  rankdir=LR;
+  graph [style=rounded, fontname="Arial Black", fontsize=13, penwidth=2.6, bgcolor=lightgray];
+  node [shape=box, style=filled, color=beige, fontname="Arial", fontsize=12];
+  edge [penwidth=1.3, color=black, fontname="Arial", fontsize=10];
+  "/bin/practice_1.dart" [label="practice_1"];
+  "/lib/features/core/data/debug/weather_repository_debug.dart" [label="weather_repository_debug"];
+  "/lib/features/core/data/osm/models/osm_weather.dart" [label="osm_weather"];
+  "/lib/features/core/data/osm/osm_api.dart" [label="osm_api"];
+  "/lib/features/core/data/osm/weather_repository_osm.dart" [label="weather_repository_osm"];
+  "/lib/features/core/data/wa/models/wa_weather.dart" [label="wa_weather"];
+  "/lib/features/core/data/wa/wa_api.dart" [label="wa_api"];
+  "/lib/features/core/data/wa/weather_repository_wa.dart" [label="weather_repository_wa"];
+  "/lib/features/core/domain/entities/search_query.dart" [label="search_query"];
+  "/lib/features/core/domain/entities/search_response.dart" [label="search_response"];
+  "/lib/features/core/domain/repositories/weather_repository.dart" [label="weather_repository"];
+  "/lib/features/core/presentation/app.dart" [label="app"];
+  subgraph "cluster~" {
+    label="practice_1";
+    subgraph "cluster~/bin" {
+      label="bin";
+      bgcolor=mediumslateblue;
+      "/bin/practice_1.dart";
+    }
+    subgraph "cluster~/lib" {
+      label="lib";
+      subgraph "cluster~/lib/features" {
+        label="features";
+        subgraph "cluster~/lib/features/core" {
+          label="core";
+          subgraph "cluster~/lib/features/core/data" {
+            label="data";
+            labeljust="r";
+            subgraph "cluster~/lib/features/core/data/debug" {
+              label="debug";
+              labeljust="c";
+              bgcolor=khaki;
+              "/lib/features/core/data/debug/weather_repository_debug.dart";
+            }
+            subgraph "cluster~/lib/features/core/data/osm" {
+              label="osm";
+              labeljust="c";
+              bgcolor=khaki;
+              "/lib/features/core/data/osm/osm_api.dart";
+              "/lib/features/core/data/osm/weather_repository_osm.dart";
+              subgraph "cluster~/lib/features/core/data/osm/models" {
+                label="models";
+                labeljust="c";
+                "/lib/features/core/data/osm/models/osm_weather.dart";
+              }
+            }
+            subgraph "cluster~/lib/features/core/data/wa" {
+              label="wa";
+              labeljust="c";
+              bgcolor=khaki;
+              "/lib/features/core/data/wa/wa_api.dart";
+              "/lib/features/core/data/wa/weather_repository_wa.dart";
+              subgraph "cluster~/lib/features/core/data/wa/models" {
+                label="models";
+                labeljust="c";
+                "/lib/features/core/data/wa/models/wa_weather.dart";
+              }
+            }
+          }
+          subgraph "cluster~/lib/features/core/domain" {
+            bgcolor=orange;
+            label="domain";
+            subgraph "cluster~/lib/features/core/domain/entities" {
+              label="entities";
+              "/lib/features/core/domain/entities/search_query.dart";
+              "/lib/features/core/domain/entities/search_response.dart";
+            }
+            subgraph "cluster~/lib/features/core/domain/repositories" {
+              label="repositories";
+              "/lib/features/core/domain/repositories/weather_repository.dart";
+            }
+          }
+          subgraph "cluster~/lib/features/core/presentation" {
+            bgcolor=limegreen;
+            label="presentation";
+            fontsize=9
+            "/lib/features/core/presentation/app.dart";
+          }
+        }
+      }
+    }
+  }
+  "/bin/practice_1.dart" -> "/lib/features/core/data/wa/wa_api.dart";
+  "/bin/practice_1.dart" -> "/lib/features/core/data/wa/weather_repository_wa.dart";
+  "/bin/practice_1.dart" -> "/lib/features/core/presentation/app.dart";
+  "/lib/features/core/data/debug/weather_repository_debug.dart" -> "/lib/features/core/domain/entities/search_query.dart"[color=deeppink];
+  "/lib/features/core/data/debug/weather_repository_debug.dart" -> "/lib/features/core/domain/entities/search_response.dart"[color=deeppink];
+  "/lib/features/core/data/debug/weather_repository_debug.dart" -> "/lib/features/core/domain/repositories/weather_repository.dart"[color=deeppink];
+  "/lib/features/core/data/osm/osm_api.dart" -> "/lib/features/core/data/osm/models/osm_weather.dart";
+  "/lib/features/core/data/osm/weather_repository_osm.dart" -> "/lib/features/core/data/osm/osm_api.dart";
+  "/lib/features/core/data/osm/weather_repository_osm.dart" -> "/lib/features/core/domain/entities/search_query.dart"[color=mediumorchid];
+  "/lib/features/core/data/osm/weather_repository_osm.dart" -> "/lib/features/core/domain/entities/search_response.dart"[color=mediumorchid];
+  "/lib/features/core/data/osm/weather_repository_osm.dart" -> "/lib/features/core/domain/repositories/weather_repository.dart"[color=mediumorchid];
+  "/lib/features/core/data/wa/wa_api.dart" -> "/lib/features/core/data/wa/models/wa_weather.dart";
+  "/lib/features/core/data/wa/weather_repository_wa.dart" -> "/lib/features/core/data/wa/wa_api.dart";
+  "/lib/features/core/data/wa/weather_repository_wa.dart" -> "/lib/features/core/domain/entities/search_query.dart"[color=navy];
+  "/lib/features/core/data/wa/weather_repository_wa.dart" -> "/lib/features/core/domain/entities/search_response.dart"[color=navy];
+  "/lib/features/core/data/wa/weather_repository_wa.dart" -> "/lib/features/core/domain/repositories/weather_repository.dart"[color=navy];
+  "/lib/features/core/domain/repositories/weather_repository.dart" -> "/lib/features/core/domain/entities/search_query.dart";
+  "/lib/features/core/domain/repositories/weather_repository.dart" -> "/lib/features/core/domain/entities/search_response.dart";
+  "/lib/features/core/presentation/app.dart" -> "/lib/features/core/domain/entities/search_query.dart"[color=forestgreen];
+  "/lib/features/core/presentation/app.dart" -> "/lib/features/core/domain/entities/search_response.dart"[color=forestgreen];
+  "/lib/features/core/presentation/app.dart" -> "/lib/features/core/domain/repositories/weather_repository.dart"[color=forestgreen];
+}
