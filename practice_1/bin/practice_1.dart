@@ -4,7 +4,7 @@ import 'package:practice_1/features/core/presentation/app.dart';
 
 const String version = '0.0.1';
 const String url = 'http://api.weatherapi.com';
-const String apiKey = '<YOUR_KEY>';
+const String apiKey = '<YOUR_API_KEY>';
 
 void main(List<String> arguments) {
   var app = App(WeatherRepositoryWA(WAApi(url, apiKey)));

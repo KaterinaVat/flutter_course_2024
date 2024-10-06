@@ -30,9 +30,9 @@ class App {
         print('Неверный формат координат');
         return;
       }
-      query = SearchQuery.byCoords(latitude, longitude);
+      query = SearchQueryByCoords(latitude, longitude);
     } else {
-      query = SearchQuery.byCity(input);
+      query = SearchQueryByCity(input);
     }
 
     var resp = await repository.getWeather(query);

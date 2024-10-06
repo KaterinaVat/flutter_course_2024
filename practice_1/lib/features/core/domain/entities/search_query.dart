@@ -1,12 +1,14 @@
-class SearchQuery {
-  final String? city;
-  final double? latitude;
-  final double? longitude;
+abstract class SearchQuery {}
 
-  const SearchQuery.byCity(this.city) 
-    : latitude = null,
-      longitude = null;
+class SearchQueryByCity extends SearchQuery {
+  final String city;
 
-  const SearchQuery.byCoords(this.latitude, this.longitude)
-    : city = null;
+  SearchQueryByCity(this.city);
+}
+
+class SearchQueryByCoords extends SearchQuery {
+  final double latitude;
+  final double longitude;
+
+  SearchQueryByCoords(this.latitude, this.longitude);
 }
