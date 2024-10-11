@@ -7,5 +7,5 @@
 - [Weatherstack API](https://weatherstack.com/dashboard)
 
 ![Граф зависимостей](./a.svg)
-<img src="./a.svg">
+
 - [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
