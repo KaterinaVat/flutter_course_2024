@@ -1,4 +1,4 @@
-abstract class SearchQuery {}
+sealed class SearchQuery {}
 
 class SearchQueryByCity extends SearchQuery {
   final String city;
