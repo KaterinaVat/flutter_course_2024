@@ -6,4 +6,6 @@
 - координатам
 - [Weatherstack API](https://weatherstack.com/dashboard)
 
-  [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
+![Граф зависимостей](./a.svg)
+<img src="./a.svg">
+- [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
