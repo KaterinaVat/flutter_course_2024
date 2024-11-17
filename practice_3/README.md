@@ -6,7 +6,7 @@
 
 ## Видео-демо
 
-Пример
+[demo.webm](https://github.com/user-attachments/assets/40f8efe1-dd35-4fb4-85c9-ad4aba445365)
 
 ## Основные функции
 
