@@ -13,7 +13,7 @@
 
 ## Видео-демо
 
-[Notes App Demo]()
+[Notes App Demo](https://github.com/user-attachments/assets/bb89fae2-3401-464a-8b0b-fef15dbec2bf)
 
 ## Установка и запуск
 
