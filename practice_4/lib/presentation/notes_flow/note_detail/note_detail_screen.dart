@@ -14,12 +14,23 @@ class NoteDetailScreen extends StatefulWidget {
 class _NoteDetailScreenState extends State<NoteDetailScreen> {
   late final NotesModel model;
   late final Note note;
+  late final TextEditingController _titleController;
+  late final TextEditingController _textController;
 
   @override
   void initState() {
     super.initState();
     model = Provider.of<NotesModel>(context, listen: false);
     note = model.notes[widget.index];
+    _titleController = TextEditingController(text: note.title);
+    _textController = TextEditingController(text: note.text);
+  }
+
+  @override
+  void dispose() {
+    _titleController.dispose();
+    _textController.dispose();
+    super.dispose();
   }
 
   @override
@@ -33,6 +44,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
         child: Column(
           children: [
             TextField(
+              controller: _titleController,
               onChanged: (value) {
                 note.title = value;
                 model.updateNote(widget.index, note);
@@ -41,6 +53,7 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
             ),
             Expanded(
               child: TextField(
+                controller: _textController,
                 onChanged: (value) {
                   note.text = value;
                   model.updateNote(widget.index, note);
@@ -53,7 +66,6 @@ class _NoteDetailScreenState extends State<NoteDetailScreen> {
             ElevatedButton(
               onPressed: () {
                 if (note.title.isEmpty) {
-                  // Show error message
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text('Please enter a title')),
                   );

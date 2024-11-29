@@ -11,15 +11,9 @@
 - `FloatingActionButton` для добавления новых заметок
 - `ElevatedButton` для кнопки удаления заметки
 
-## Скриншоты
+## Видео-демо
 
-![Notes List](screenshots/notes_list.png)
-
-![Note Details](screenshots/note_details.png)
-
-## Видео демонстрации
-
-[Notes App Demo](screenshots/demo.mp4)
+[Notes App Demo](demo/demo.webm)
 
 ## Установка и запуск
 
