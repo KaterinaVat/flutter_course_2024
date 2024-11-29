@@ -13,7 +13,7 @@
 
 ## Видео-демо
 
-[Notes App Demo](demo/demo.webm)
+[Notes App Demo]()
 
 ## Установка и запуск
 
