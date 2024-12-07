@@ -6,7 +6,7 @@
 
 ## Видео-демо
 
-[demo.webm](https://github.com/user-attachments/assets/40f8efe1-dd35-4fb4-85c9-ad4aba445365)
+[demo.webm](https://github.com/KaterinaVat/flutter_course_2024/blob/master/practice_3/bdedf803-0092-4338-9b64-e0297245a321.webm)
 
 ## Что было использовано?
 
