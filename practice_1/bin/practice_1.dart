@@ -1,13 +1,20 @@
-import 'package:practice_1/features/core/data/wa/wa_api.dart';
-import 'package:practice_1/features/core/data/wa/weather_repository_wa.dart';
+import 'package:practice_1/features/core/data/debug/weather_repository_debug.dart';
+import 'package:practice_1/features/core/data/ws/ws_api.dart';
+import 'package:practice_1/features/core/data/ws/weather_repository_ws.dart';
 import 'package:practice_1/features/core/presentation/app.dart';
 
+
+
 const String version = '0.0.1';
-const String url = 'http://api.weatherapi.com';
-const String apiKey = '<YOUR_API_KEY>';
+const String url_OSM = 'https://api.openweathermap.org';
+const String apiKey_OSM = '8edaa98a088028708c27c0115ce4c10b';
 
-void main(List<String> arguments) {
-  var app = App(WeatherRepositoryWA(WAApi(url, apiKey)));
+const String url_TM = 'http://api.weatherstack.com';
+const String apiKey_TM = '4bf58b2ee069822c7ed103d23fe364e3';
 
+void main(List<String> arguments) async{
+  var app = App(WeatherRepositoryWS(WSApi(url_TM, apiKey_TM)));
   app.run();
+
+
 }

@@ -1,13 +1,14 @@
-class SearchResponse {
+class SearchResponce {
   final int temp;
   final WeatherType type;
 
-  const SearchResponse(this.temp, this.type);
+  const SearchResponce(this.temp, this.type);
 
   @override
   String toString() {
-    return 'SearchResponse{temp: $temp, type: $type}';
+    return 'SearchResponce{temp: $temp, type: $type}';
   }
 }
 
-enum WeatherType {clear, rain, cloudy, sunny, other}
+
+enum WeatherType {clear, rain, cloudy, other, snow, sunny }

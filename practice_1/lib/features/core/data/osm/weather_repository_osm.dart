@@ -3,25 +3,27 @@ import 'package:practice_1/features/core/domain/entities/search_query.dart';
 import 'package:practice_1/features/core/domain/entities/search_response.dart';
 import 'package:practice_1/features/core/domain/repositories/weather_repository.dart';
 
+
 class WeatherRepositoryOSM implements WeatherRepository {
   final OSMApi _api;
-
   WeatherRepositoryOSM(this._api);
 
   @override
-  Future<SearchResponse> getWeather(SearchQuery query) async {
-    switch (query) {
-      case SearchQueryByCity():
-        var response = await _api.getWeather(query.city);
-        return SearchResponse(response.temp.toInt(), _weatherType(response.type));
-      default:
-        throw UnimplementedError();
+  Future<SearchResponce> getWeather(SearchQuery query) async {
+    if (query is SearchQueryCity) {
+      var response = await _api.getWeather(query.city);
+      return SearchResponce(response.temp.toInt(), _weatherType(response.type));
+    }
+    else {
+      throw UnimplementedError();
     }
   }
 }
 
+
+
 WeatherType _weatherType(String type) {
-  switch (type) {
+  switch (type){
     case 'Clouds':
       return WeatherType.cloudy;
     case 'Clear':

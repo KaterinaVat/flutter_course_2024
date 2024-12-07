@@ -1,6 +1,9 @@
 import 'package:practice_1/features/core/domain/entities/search_query.dart';
 import 'package:practice_1/features/core/domain/entities/search_response.dart';
 
+// класс который содержит только интерфейс
+// метод получния погоды по городу
+
 abstract class WeatherRepository {
-  Future<SearchResponse> getWeather(SearchQuery query);
+  Future<SearchResponce> getWeather(SearchQuery query);
 }

@@ -1,15 +1,18 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'api_key.dart';
 
-Future<Map<String, dynamic>> fetchWeather(String city) async {
-  var response = await http.get(Uri.parse('http://api.weatherapi.com/v1/current.json?key=$apiKey&q=$city&aqi=no'));
-
-  if (response.statusCode == 200) {
-    return jsonDecode(response.body);
-  } else {
-    throw Exception('Failed to load weather data');
+class WSApi {
+  final String url;
+  final String apiKey;
+  WSApi(this.url, this.apiKey);
+  Future<Map<String, dynamic>>  getWeatherCity(String city) async {
+    var responce = await http.get(
+        Uri.parse('$url/current?access_key=$apiKey&query=$city'));
+    if (responce.statusCode==200) {
+        return json.decode(responce.body);
+    } else {
+      throw Exception('Ошибка ввода города');  }
   }
 }
 
@@ -23,94 +26,120 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'MeteoAkper',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+        primaryColor: Colors.blueGrey,
+        scaffoldBackgroundColor: Color(0xFFFFF8E1),
       ),
-      home: const WeatherScreen(),
+      home:
+      const MyHomePage(title: 'Weather'),
     );
   }
 }
 
-class WeatherScreen extends StatefulWidget {
-  const WeatherScreen({super.key});
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+  final String title;
 
   @override
-  _WeatherScreenState createState() => _WeatherScreenState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _WeatherScreenState extends State<WeatherScreen> {
-  final TextEditingController _cityController = TextEditingController();
-  Map<String, dynamic> _weatherData = {};
+class _MyHomePageState extends State<MyHomePage> {
+  final TextEditingController _city = TextEditingController();
+  final WSApi _api = WSApi('http://api.weatherstack.com', '4bf58b2ee069822c7ed103d23fe364e3');
+  String _weatherInfo = '';
   bool _isLoading = false;
+  String _gifPath = 'assets/sticker.gif';
+
+  Future<void> _fetchWeather() async {
+    if (_city.text.trim().isEmpty) {
+      setState(() {
+        _weatherInfo = 'Введите название города';
+      });
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+      _weatherInfo = '';
+      _gifPath = 'assets/sticker.gif';
+    });
+
+    try {
+      final data = await _api.getWeatherCity(_city.text);
+      String weatherDescription = data['current']['weather_descriptions'][0];
+      if (weatherDescription.contains('Rain')) {
+        _gifPath = 'assets/rain.gif';
+      } else if (weatherDescription.contains('Clear')) {
+        _gifPath = 'assets/sun.gif';
+      } else if (weatherDescription.contains('Cloud')) {
+        _gifPath = 'assets/wind_1.gif';
+      } else if (weatherDescription.contains('Snow')) {
+        _gifPath = 'assets/snow.gif';
+      } else{
+        _gifPath = 'assets/sticker.gif';
+      }
+      setState(() {
+        _weatherInfo = 'Температура: ${data['current']['temperature']}°C\n'
+            'Погода: ${weatherDescription}';
+      });
+    } catch (e) {
+      setState(() {
+        _weatherInfo = 'Ошибка ввода города';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MeteoAkper'),
+        backgroundColor: const Color(0xFFFFF8E1),
+        title: Text(widget.title),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 16),
             TextField(
-              controller: _cityController,
-              decoration: const InputDecoration(
-                hintText: 'Введите город',
+              controller: _city,
+              decoration: InputDecoration(
+                labelText: 'Введите город',
+                border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                if (_cityController.text.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Пожалуйста, введите название города')),
-                  );
-                } else {
-                  setState(() {
-                    _isLoading = true;
-                  });
-                  try {
-                    final weatherData = await fetchWeather(_cityController.text);
-                    setState(() {
-                      _weatherData = weatherData;
-                    });
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Город не найден')),
-                    );
-                  } finally {
-                    setState(() {
-                      _isLoading = false;
-                    });
-                  }
-                }
-              },
-              child: const Text('Узнать погоду'),
-            ),
+            const SizedBox(height: 16,),
+            ElevatedButton(onPressed: _fetchWeather, child: const Text("Получить погоду")),
             const SizedBox(height: 16),
             if (_isLoading)
               const CircularProgressIndicator()
-            else if (_weatherData.isNotEmpty)
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Text('Город: ${_weatherData['location']['name']}'),
-                        Text('Температура: ${_weatherData['current']['temp_c']}°C'),
-                        Text('Погода: ${_weatherData['current']['condition']['text']}'),
-                        Image.network(
-                          'http://cdn.weatherapi.com/weather/64x64/day/${_weatherData['current']['condition']['icon'].split('/').last}',
-                        ),
-                      ],
-                    ),
-                  ),
+            else
+              Text(
+                _weatherInfo,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16),
+              ),
+
+            SizedBox(
+
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height*0.4,
+                child: Image.asset(
+                  _gifPath,
+                  fit: BoxFit.cover,
                 ),
+            ),
           ],
-        ),
-      ),
+        )
+      )
     );
   }
 }

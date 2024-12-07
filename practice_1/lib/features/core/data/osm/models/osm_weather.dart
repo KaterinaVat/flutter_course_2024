@@ -1,5 +1,5 @@
 class OSMWeather {
-  final double temp;
+  final int temp;
   final String type;
 
   const OSMWeather(this.temp, this.type);
@@ -8,4 +8,5 @@ class OSMWeather {
   String toString() {
     return 'OSMWeather{temp: $temp, type: $type}';
   }
+
 }

@@ -1,14 +1,16 @@
-sealed class SearchQuery {}
+// данный класс будет хранить значение города для которого будет выполняться поиск
+abstract class SearchQuery{}
 
-class SearchQueryByCity extends SearchQuery {
+class SearchQueryCity extends SearchQuery{
   final String city;
 
-  SearchQueryByCity(this.city);
+  SearchQueryCity(this.city);
 }
 
-class SearchQueryByCoords extends SearchQuery {
-  final double latitude;
-  final double longitude;
 
-  SearchQueryByCoords(this.latitude, this.longitude);
+// данный класс будет хранить значение координат широты и долготы города для которого будет выполняться поиск
+class SearchQueryCoords  extends SearchQuery {
+  final double x;
+  final double y;
+  SearchQueryCoords(this.x, this.y);
 }
