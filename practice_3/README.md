@@ -8,7 +8,7 @@
 
 ## Видео-демо
 
-[demo.webm](https://github.com/KaterinaVat/flutter_course_2024/blob/master/practice_3/practice_3_bdedf803-0092-4338-9b64-e0297245a321.mp4)
+[demo.webm](https://github.com/KaterinaVat/flutter_course_2024/blob/master/practice_3/practice_3_bdedf803-0092-4338-9b64-e0297245a321)
 
 ## Что было использовано?
 
