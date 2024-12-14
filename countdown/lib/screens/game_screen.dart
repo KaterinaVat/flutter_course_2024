@@ -48,7 +48,7 @@ class GameScreen extends StatelessWidget {
                   Player player = players[index];
                   return NumberInput(
                     player: player,
-                    round: currentRound,  // Добавляем этот параметр
+                    round: currentRound,
                     onSubmit: (int attempt) {
                       gameProvider.submitAttempt(player, attempt);
                     },

@@ -43,7 +43,6 @@ class LeaderboardScreen extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Возвращаемся на начальный экран после завершения игры
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => HomeScreen()),
                   );

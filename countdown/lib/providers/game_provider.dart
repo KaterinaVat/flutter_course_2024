@@ -27,12 +27,10 @@ class GameProvider with ChangeNotifier {
   }
 
   void nextRound() {
-    // Calculate scores for the current round
     if (_currentRoundIndex < _rounds.length) {
       Round currentRound = _rounds[_currentRoundIndex];
       int target = currentRound.targetNumber;
 
-      // Determine the winner(s) of the round by closest attempt
       Player? roundWinner;
       int smallestDifference = double.maxFinite.toInt();
 
@@ -44,7 +42,6 @@ class GameProvider with ChangeNotifier {
         }
       });
 
-      // Award 1 point to the player or players with the closest attempt
       if (roundWinner != null) {
         roundWinner!.score += 1;
       }

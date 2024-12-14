@@ -93,7 +93,7 @@ class _NumberInputState extends State<NumberInput> {
                       }),
                       ...['+', '-', '*', '/'].map((operator) => ElevatedButton(
                             onPressed: !_isSubmitted
-                                ? () => _addToExpression(operator, -1) // Используем фиктивный индекс
+                                ? () => _addToExpression(operator, -1)
                                 : null,
                             child: Text(operator),
                           )),
