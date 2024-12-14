@@ -4,9 +4,30 @@ import 'package:provider/provider.dart';
 import '../providers/game_provider.dart';
 import 'game_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  final TextEditingController _playerCountController = TextEditingController();
-  final TextEditingController _roundCountController = TextEditingController();
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController _playerNameController = TextEditingController();
+  List<String> _players = [];
+  int _numberOfRounds = 3;
+
+  void _addPlayer() {
+    if (_playerNameController.text.isNotEmpty) {
+      setState(() {
+        _players.add(_playerNameController.text);
+        _playerNameController.clear();
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _playerNameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,43 +41,80 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Enter Players (comma-separated):',
+              'Add Players:',
               style: TextStyle(fontSize: 18),
             ),
-            TextField(
-              controller: _playerCountController,
-              decoration: InputDecoration(
-                hintText: 'Player1, Player2, Player3',
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _playerNameController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter player name',
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: _addPlayer,
+                ),
+              ],
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: _players.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(_players[index]),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        setState(() {
+                          _players.removeAt(index);
+                        });
+                      },
+                    ),
+                  );
+                },
               ),
             ),
-            SizedBox(height: 20),
             Text(
               'Number of Rounds:',
               style: TextStyle(fontSize: 18),
             ),
-            TextField(
-              controller: _roundCountController,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: 'Enter number of rounds',
-              ),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(Icons.remove),
+                  onPressed: _numberOfRounds > 1
+                      ? () => setState(() {
+                          _numberOfRounds--;
+                        })
+                      : null,
+                ),
+                Text(
+                  _numberOfRounds.toString(),
+                  style: TextStyle(fontSize: 20),
+                ),
+                IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => setState(() {
+                    _numberOfRounds++;
+                  }),
+                ),
+              ],
             ),
             SizedBox(height: 30),
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  // Получаем имена игроков и количество раундов
-                  List<String> playerNames = _playerCountController.text.split(',');
-                  int numberOfRounds = int.tryParse(_roundCountController.text) ?? 3; // дефолтное значение - 3 раунда
-
-                  // Инициализируем игру через провайдер
-                  context.read<GameProvider>().initializeGame(playerNames, numberOfRounds);
-
-                  // Переходим на экран игры
+                onPressed: _players.isNotEmpty ? () {
+                  context
+                      .read<GameProvider>()
+                      .initializeGame(_players, _numberOfRounds);
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => GameScreen()),
                   );
-                },
+                } : null,
                 child: Text('Start Game'),
               ),
             ),
