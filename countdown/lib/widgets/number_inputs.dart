@@ -17,22 +17,24 @@ class NumberInput extends StatefulWidget {
 class _NumberInputState extends State<NumberInput> {
   String _currentExpression = '';
   bool _isSubmitted = false;
-  Set<int> _usedIndices = {};
+  List<int> _usedElements = [];
 
   void _addToExpression(String value, int index) {
     setState(() {
       _currentExpression += value;
-      _usedIndices.add(index);
+      _usedElements.add(index);
     });
   }
 
   void _undoLastEntry() {
     setState(() {
-      if (_currentExpression.isNotEmpty) {
-        String lastChar = _currentExpression.substring(_currentExpression.length - 1);
-        int lastIndex = _currentExpression.lastIndexOf(lastChar);
+      if (_usedElements.isNotEmpty) {
+        int lastIndex = _usedElements.removeLast();
         _currentExpression = _currentExpression.substring(0, _currentExpression.length - 1);
-        _usedIndices.remove(lastIndex);
+        if (lastIndex >= 0) {
+          // Разблокируем только числа
+          _usedElements.remove(lastIndex);
+        }
       }
     });
   }
@@ -85,18 +87,22 @@ class _NumberInputState extends State<NumberInput> {
                         int index = entry.key;
                         int number = entry.value;
                         return ElevatedButton(
-                          onPressed: !_isSubmitted && !_usedIndices.contains(index)
+                          onPressed: !_isSubmitted && !_usedElements.contains(index)
                               ? () => _addToExpression('$number', index)
                               : null,
                           child: Text('$number'),
                         );
                       }),
-                      ...['+', '-', '*', '/'].map((operator) => ElevatedButton(
-                            onPressed: !_isSubmitted
-                                ? () => _addToExpression(operator, -1)
-                                : null,
-                            child: Text(operator),
-                          )),
+                      ...['+', '-', '*', '/'].asMap().entries.map((entry) {
+                        String operator = entry.value;
+                        int index = entry.key + widget.round.numbers.length;
+                        return ElevatedButton(
+                          onPressed: !_isSubmitted && !_usedElements.contains(index)
+                              ? () => _addToExpression(operator, index)
+                              : null,
+                          child: Text(operator),
+                        );
+                      }),
                     ],
                   ),
                   SizedBox(height: 10),
