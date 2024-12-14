@@ -32,7 +32,6 @@ class _NumberInputState extends State<NumberInput> {
         int lastIndex = _usedElements.removeLast();
         _currentExpression = _currentExpression.substring(0, _currentExpression.length - 1);
         if (lastIndex >= 0) {
-          // Разблокируем только числа
           _usedElements.remove(lastIndex);
         }
       }
