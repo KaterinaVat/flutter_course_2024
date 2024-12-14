@@ -1,16 +1,48 @@
-# countdown
+# Countdown Game
 
-A new Flutter project.
+Countdown Game — это мобильное приложение, созданное с использованием Flutter, в котором пользователи соревнуются в решении математической задачи - получить число как можно ближе к заданному.
 
-## Getting Started
+## Описание
 
-This project is a starting point for a Flutter application.
+В каждом раунде игрокам даются шесть чисел и одно целевое число. Цель заключается в использовании арифметических операций (сложение, вычитание, умножение, деление) для составления выражения, которое как можно ближе приближается к целевому числу.
 
-A few resources to get you started if this is your first Flutter project:
+## Установка
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+1. Клонируйте репозиторий:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+   
+   git clone https://github.com/your-username/countdown_game.git
+   
+
+2. Перейдите в директорию проекта:
+
+   
+   cd countdown_game
+   
+
+3. Установите зависимости:
+
+   
+   flutter pub get
+   
+
+4. Запустите приложение:
+
+   
+   flutter run
+   
+
+## Функционал
+
+- Поддержка нескольких игроков.
+- Случайная генерация чисел и целей.
+- Подсчет очков для определения победителя каждого раунда.
+- Управление состоянием через Provider.
+
+## Структура проекта
+
+- lib/main.dart: Точка входа приложения.
+- lib/screens/: Содержит все экраны приложения.
+- lib/models/: Модели данных для игроков и раундов.
+- lib/providers/: Управление состоянием игры.
+- lib/widgets/: Пользовательские виджеты интерфейса.
