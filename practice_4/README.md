@@ -13,6 +13,6 @@
 - `IconButton` для реализации кнопок удаления
 - `FloatingActionButton` для реализации кнопки добавления новых заметок
 - `ElevatedButton` для кнопки "добавить"
-- 
+[[0cc00c7d-9057-455a-8bd3-fcbfeb5b830b.webm](0cc00c7d-9057-455a-8bd3-fcbfeb5b830b.webm)]
 
 
