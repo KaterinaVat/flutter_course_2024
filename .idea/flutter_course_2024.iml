@@ -12,6 +12,15 @@
       <excludeFolder url="file://$MODULE_DIR$/practice_4/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/practice_4/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/practice_4/build" />
+      <excludeFolder url="file://$MODULE_DIR$/tolook/flutter_course_2024/wishlist_app/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/tolook/flutter_course_2024/wishlist_app/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/tolook/flutter_course_2024/wishlist_app/build" />
+      <excludeFolder url="file://$MODULE_DIR$/wishlist/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/wishlist/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/wishlist/build" />
+      <excludeFolder url="file://$MODULE_DIR$/pr_wishlist/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/pr_wishlist/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/pr_wishlist/build" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
